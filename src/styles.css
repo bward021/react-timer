@@ -2,3 +2,16 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+.nav-bar {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.single-lap {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr;
+  width: 75%;
+}

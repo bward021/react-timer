@@ -5,6 +5,7 @@ const StopWatch = () => {
   const [counting, setCounting] = useState(false);
   const [firstClick, setFirstClick] = useState(false);
   const [counter, setCounter] = useState(0);
+  const [lapTime, setLapTime] = useState(0);
   const [laps, setLaps] = useState([]);
 
   useEffect(() => {
@@ -12,26 +13,27 @@ const StopWatch = () => {
     if (counting) {
       timerId = setInterval(() => {
         setCounter((prevCount) => (prevCount += 10));
+        setLapTime((prevLapTime) => (prevLapTime += 10));
       }, 10);
     }
 
     return () => clearInterval(timerId);
   });
 
-  const displayTime = () => {
-    if (counter < 3600000) {
+  const displayTime = (time) => {
+    if (time < 3600000) {
       return moment()
         .hour(0)
         .minute(0)
         .second(0)
-        .millisecond(counter)
+        .millisecond(time)
         .format("mm : ss . SS");
     } else {
       return moment()
         .hour(0)
         .minute(0)
         .second(0)
-        .millisecond(counter)
+        .millisecond(time)
         .format("HH : mm : ss . SS");
     }
   };
@@ -42,26 +44,36 @@ const StopWatch = () => {
   };
 
   const handleReset = () => {
+    setCounting(false);
+    setFirstClick(false);
     setCounter(0);
-    setFirstClick(!firstClick);
+    setLapTime(0);
     setLaps([]);
   };
 
+  const handleLaps = () => {
+    setLaps([{ counter, lapTime, lap: laps.length }, ...laps]);
+    setLapTime(0);
+  };
+
   const displayLaps = () => {
-    return laps.map((lap) => {
-      return moment()
-        .hour(0)
-        .minute(0)
-        .second(0)
-        .millisecond(lap)
-        .format("HH : mm : ss . SS");
+    return laps.map((item, idx) => {
+      const { lap, counter, lapTime } = item;
+      return (
+        <div key={idx} className="single-lap">
+          <div>{lap + 1}</div>
+          <div>{displayTime(lapTime)}</div>
+          <div>{displayTime(counter)}</div>
+        </div>
+      );
     });
   };
 
   return (
     <div>
       <h1>StopWatch</h1>
-      <h2>{displayTime()}</h2>
+      <h2>{displayTime(counter)}</h2>
+      {laps.length >= 1 && <div>{displayTime(lapTime)}</div>}
       <div className="button-container">
         {!counting && !firstClick ? (
           <button onClick={handleStart}>Start</button>
@@ -73,20 +85,18 @@ const StopWatch = () => {
             {!counting ? (
               <button onClick={handleReset}>Reset</button>
             ) : (
-              <button
-                onClick={() => {
-                  setLaps(laps.concat(counter));
-                }}
-              >
-                Lap
-              </button>
+              <button onClick={handleLaps}>Lap</button>
             )}
           </>
         )}
       </div>
       <hr />
-      <h2> Laps: </h2>
-      {displayLaps()}
+      {laps.length >= 1 && (
+        <>
+          <h2> Laps: </h2>
+          {displayLaps()}
+        </>
+      )}
     </div>
   );
 };
