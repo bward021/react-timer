@@ -27,3 +27,15 @@
 ## Persistant Data
 
 - We want the ability to switch between timers and have them continue counting.
+
+## Old Stuff:
+
+- padStart is cool but we didn't need it anymore. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart
+
+```javascript
+number.toString().padStart(2, "0");
+```
+
+## Resources
+
+- We got the idea for moment from the following page: http://jsfiddle.net/LaAzg/154/
