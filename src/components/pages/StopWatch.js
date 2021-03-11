@@ -5,6 +5,7 @@ const StopWatch = () => {
   const [counting, setCounting] = useState(false);
   const [firstClick, setFirstClick] = useState(false);
   const [counter, setCounter] = useState(0);
+  const [laps, setLaps] = useState([]);
 
   useEffect(() => {
     let timerId;
@@ -40,6 +41,23 @@ const StopWatch = () => {
     setFirstClick(!firstClick);
   };
 
+  const handleReset = () => {
+    setCounter(0);
+    setFirstClick(!firstClick);
+    setLaps([]);
+  };
+
+  const displayLaps = () => {
+    return laps.map((lap) => {
+      return moment()
+        .hour(0)
+        .minute(0)
+        .second(0)
+        .millisecond(lap)
+        .format("HH : mm : ss . SS");
+    });
+  };
+
   return (
     <div>
       <h1>StopWatch</h1>
@@ -52,10 +70,23 @@ const StopWatch = () => {
             <button onClick={() => setCounting(!counting)}>
               {!counting ? "Resume" : "Stop"}
             </button>
-            {!counting ? <button>Reset</button> : <button>Lap</button>}
+            {!counting ? (
+              <button onClick={handleReset}>Reset</button>
+            ) : (
+              <button
+                onClick={() => {
+                  setLaps(laps.concat(counter));
+                }}
+              >
+                Lap
+              </button>
+            )}
           </>
         )}
       </div>
+      <hr />
+      <h2> Laps: </h2>
+      {displayLaps()}
     </div>
   );
 };
