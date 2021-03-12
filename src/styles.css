@@ -10,8 +10,15 @@
   align-items: center;
 }
 
-.single-lap {
+.lap-container {
+  width: 75%;
+  margin: 0 auto;
+  padding-top: 25px;
+}
+
+.single-lap,
+.lap-header {
   display: grid;
   grid-template-columns: 1fr 2fr 2fr;
-  width: 75%;
+  width: 100%;
 }

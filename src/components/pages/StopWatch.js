@@ -4,7 +4,7 @@ import moment from "moment";
 const StopWatch = () => {
   const [counting, setCounting] = useState(false);
   const [firstClick, setFirstClick] = useState(false);
-  const [counter, setCounter] = useState(0);
+  const [overallTime, setOverallTime] = useState(0);
   const [lapTime, setLapTime] = useState(0);
   const [laps, setLaps] = useState([]);
 
@@ -12,7 +12,7 @@ const StopWatch = () => {
     let timerId;
     if (counting) {
       timerId = setInterval(() => {
-        setCounter((prevCount) => (prevCount += 10));
+        setOverallTime((prevCount) => (prevCount += 10));
         setLapTime((prevLapTime) => (prevLapTime += 10));
       }, 10);
     }
@@ -46,24 +46,24 @@ const StopWatch = () => {
   const handleReset = () => {
     setCounting(false);
     setFirstClick(false);
-    setCounter(0);
+    setOverallTime(0);
     setLapTime(0);
     setLaps([]);
   };
 
   const handleLaps = () => {
-    setLaps([{ counter, lapTime, lap: laps.length }, ...laps]);
+    setLaps([{ overallTime, lapTime, lap: laps.length }, ...laps]);
     setLapTime(0);
   };
 
   const displayLaps = () => {
     return laps.map((item, idx) => {
-      const { lap, counter, lapTime } = item;
+      const { lap, overallTime, lapTime } = item;
       return (
         <div key={idx} className="single-lap">
           <div>{lap + 1}</div>
           <div>{displayTime(lapTime)}</div>
-          <div>{displayTime(counter)}</div>
+          <div>{displayTime(overallTime)}</div>
         </div>
       );
     });
@@ -72,7 +72,7 @@ const StopWatch = () => {
   return (
     <div>
       <h1>StopWatch</h1>
-      <h2>{displayTime(counter)}</h2>
+      <h2>{displayTime(overallTime)}</h2>
       {laps.length >= 1 && <div>{displayTime(lapTime)}</div>}
       <div className="button-container">
         {!counting && !firstClick ? (
@@ -90,12 +90,16 @@ const StopWatch = () => {
           </>
         )}
       </div>
-      <hr />
       {laps.length >= 1 && (
-        <>
-          <h2> Laps: </h2>
+        <div className="lap-container">
+          <div className="lap-header">
+            <div>Lap</div>
+            <div>Lap Times</div>
+            <div>Overall Time</div>
+          </div>
+          <hr />
           {displayLaps()}
-        </>
+        </div>
       )}
     </div>
   );

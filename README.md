@@ -39,3 +39,12 @@ number.toString().padStart(2, "0");
 ## Resources
 
 - We got the idea for moment from the following page: http://jsfiddle.net/LaAzg/154/
+
+### Stopwatch Todos
+
+- laptimes
+
+  - show red for the longest lap time
+  - show blue for the shortest lap time
+
+- Style the buttons
