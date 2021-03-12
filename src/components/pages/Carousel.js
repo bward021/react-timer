@@ -24,7 +24,11 @@ const Carousel = (props) => {
         return idx.toString().padStart(2, "0");
       })
       .map((num, idx) => (
-        <div key={idx} className="number">
+        <div
+          key={idx}
+          className="number"
+          onDoubleClick={() => console.log("clicked")}
+        >
           <h3>{num}</h3>
         </div>
       ));
@@ -63,8 +67,3 @@ const Carousel = (props) => {
 };
 
 export default Carousel;
-
-// Set correct numbers
-// - Hours 00 - 59
-// - Minutes 00 - 59
-// - Seconds 00 - 59

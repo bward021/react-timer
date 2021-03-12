@@ -74,17 +74,11 @@
 }
 
 .slick-center h3 {
-  /* color: #3498db; */
   color: black;
 }
 
 .slick-slider {
   width: 33%;
-}
-
-.center {
-  /* padding: 1em;
-  margin: 1em; */
 }
 
 /* Fixes an issue with the focus being too big */

@@ -106,15 +106,3 @@ const StopWatch = () => {
 };
 
 export default StopWatch;
-
-// need to know when the stopwatch is running
-// state for MS
-// state for SS
-// state for MM
-// Start button
-// time that starts with MM:SS:MS
-// When you click the start it shows a resume and lap button
-// When you click the start it starts counting up
-// Hitting stop pauses the counting
-// Hitting stop turns the stop button to resume and turns the lap button to reset
-// ## Hitting lap
